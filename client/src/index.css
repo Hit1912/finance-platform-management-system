@@ -1,0 +1,310 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
+@import "tailwindcss";
+@import "tw-animate-css";
+
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+  --bg-color: #f0f9ff;
+  --secondary-dark-color: #0c4a6e;
+  --max-width: 82rem;
+  --radius: 1rem;
+  
+  /* Professional Light Blue Theme Palette */
+    --background: 200 50% 95%; /* Subtle Light Blue Background */
+    --foreground: 210 60% 5%;
+    --card: 0 0% 100%;
+    --card-foreground: 210 60% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 210 60% 10%;
+    --primary: 215 90% 10%; /* Very Dark Navy for sidebar/accents */
+    --primary-foreground: 210 40% 98%;
+    --secondary: 199 60% 90%; 
+    --secondary-foreground: 199 90% 20%;
+    --muted: 199 30% 92%;
+    --muted-foreground: 199 20% 40%;
+    --accent: 199 89% 48%; /* Vivid Sky Blue */
+    --accent-purple: 270 90% 65%; /* Premium Royal Purple */
+    --accent-foreground: 199 10% 98%;
+    
+    --success: 160 84% 35%;
+    --success-foreground: 160 20% 98%;
+    --destructive: 0 84% 50%;
+    --destructive-foreground: 210 40% 98%;
+    --warning: 45 92% 45%;
+    --warning-foreground: 45 20% 10%;
+
+    --border: 199 30% 88%;
+    --input: 199 30% 88%;
+    --ring: 199 89% 48%;
+
+    --chart-1: 199 89% 48%; /* Sky Blue */
+    --chart-2: 270 90% 65%; /* Royal Purple */
+    --chart-3: 210 100% 60%; /* Marine Blue */
+    --chart-4: 190 90% 50%; /* Cyan */
+    --chart-5: 220 80% 45%; /* Deep Sky */
+  
+    /* Professional Blue & Purple Background */
+    --body-bg: #e0f2fe; 
+    --body-gradient: radial-gradient(at 0% 0%, hsla(199,100%,90%,0.8) 0, transparent 50%), 
+                     radial-gradient(at 100% 100%, hsla(270,100%,90%,0.8) 0, transparent 50%);
+  }
+  
+  .dark {
+    /* Obsidian Dark Mode */
+    --background: 220 40% 2%;
+    --foreground: 210 20% 98%;
+    --card: 220 40% 4%;
+    --card-foreground: 210 20% 98%;
+    --popover: 220 40% 4%;
+    --popover-foreground: 210 20% 98%;
+    --primary: 199 89% 48%;
+    --primary-foreground: 210 10% 2%;
+    --secondary: 220 40% 8%;
+    --secondary-foreground: 200 20% 98%;
+    --muted: 220 40% 8%;
+    --muted-foreground: 220 20% 60%;
+    --accent: 199 89% 48%; 
+    --accent-purple: 270 90% 65%;
+    --accent-foreground: 199 10% 2%;
+    
+    --success: 160 84% 55%;
+    --success-foreground: 160 10% 2%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 10% 2%;
+    
+    --border: 220 40% 12%;
+    --input: 220 40% 12%;
+    --ring: 199 89% 48%;
+
+    --chart-1: 199 89% 48%;
+    --chart-2: 270 90% 65%;
+    --chart-3: 190 90% 50%;
+    --chart-4: 210 100% 60%;
+    --chart-5: 220 80% 60%;
+    
+    --body-bg: #020617;
+    --body-gradient: radial-gradient(at 0% 0%, hsla(199,100%,10%,0.4) 0, transparent 50%), 
+                     radial-gradient(at 100% 100%, hsla(270,100%,10%,0.4) 0, transparent 50%);
+  }
+  
+  @layer base {
+    * {
+      @apply border-border outline-none;
+    }
+  
+    body {
+      @apply antialiased selection:bg-indigo-500/30 overflow-x-hidden;
+      font-family: 'Outfit', sans-serif !important;
+      background-color: var(--body-bg);
+      color: hsl(var(--foreground));
+      letter-spacing: -0.01em;
+      line-height: 1.6;
+      min-height: 100vh;
+      opacity: 0;
+      animation: fadeIn 0.6s ease-out forwards;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'Outfit', sans-serif !important;
+    letter-spacing: -0.02em;
+  }
+
+  .recurring-control button span {
+    text-transform: capitalize !important;
+  }
+
+  input, select, textarea {
+    @apply transition-all duration-300;
+  }
+
+  input:focus, select:focus, textarea:focus {
+    @apply ring-4 ring-accent/10 border-accent/50 !outline-none;
+  }
+}
+
+/* Modern Fintech Dashboard Components */
+.glass-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius);
+}
+
+.glass-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.dark .glass-card {
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+}
+
+.glass-pill {
+  @apply bg-accent/10 border border-accent/20 text-accent rounded-full px-3 py-1 flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider;
+}
+
+/* Button & Interactive Animations - Beautiful Premium Styling */
+.btn-premium {
+  @apply relative overflow-hidden transition-all duration-500 active:scale-95 rounded-2xl font-black uppercase tracking-[0.2em] text-[10px] flex items-center justify-center gap-3;
+  background: linear-gradient(135deg, hsl(var(--accent)), hsl(var(--accent-purple)));
+  color: hsl(var(--accent-foreground));
+  box-shadow: 0 10px 20px -5px hsla(var(--accent-purple), 0.4),
+              inset 0 1px 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.btn-premium:hover {
+  @apply -translate-y-1;
+  background: linear-gradient(135deg, hsl(var(--accent) / 0.9), hsl(var(--accent-purple) / 0.9));
+  box-shadow: 0 20px 40px -10px hsla(var(--accent-purple), 0.5),
+              inset 0 1px 2px 0 rgba(255, 255, 255, 0.3);
+}
+
+.btn-premium::after {
+  content: "";
+  @apply absolute inset-0 opacity-0 transition-opacity duration-500 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-[30deg] translate-x-[-150%];
+}
+
+.btn-premium:hover::after {
+  @apply opacity-100 translate-x-[150%];
+}
+
+.btn-hover {
+  @apply transition-all duration-300 active:scale-95;
+}
+
+.btn-hover:hover {
+  @apply shadow-[0_0_20px_rgba(var(--accent),0.3)] brightness-110;
+}
+
+/* Table Design */
+table {
+  @apply w-full border-collapse;
+}
+
+thead tr {
+  @apply border-b border-border bg-muted/40 sticky top-0 z-10;
+}
+
+tbody tr {
+  @apply border-b border-border/40 transition-colors duration-200;
+}
+
+tbody tr:hover {
+  @apply bg-accent/5;
+}
+
+/* Sidebar Theme Helper - Now Solid Dark */
+.sidebar-bg {
+  background-color: #020617; /* Solid Midnight Dark */
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.sidebar-item-active {
+  background: hsla(var(--accent), 0.15);
+  border-left: 4px solid hsl(var(--accent));
+  color: hsl(var(--accent));
+  font-weight: 700;
+}
+
+.sidebar-text {
+  @apply text-slate-400 group-hover:text-white transition-colors capitalize;
+}
+
+.sidebar-icon {
+  @apply text-slate-500 group-hover:text-accent transition-colors;
+}
+
+/* Custom Scrollbar - Minimalist */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-accent/20 rounded-full hover:bg-accent/40 transition-colors;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.pulse-glow {
+  animation: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.1; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(1.05); }
+}
+
+.gsap-reveal {
+  will-change: transform, opacity;
+}
