@@ -7,27 +7,6 @@ import TransactionModel, { TransactionTypeEnum } from "../models/transaction.mod
 import { startOfMonth, endOfMonth } from "date-fns";
 
 export const getFinanceOverviewService = async (userId: string) => {
-  // MOCK MODE: Fallback if DB is not connected
-  if (mongoose.connection.readyState !== 1) {
-    console.log("MOCK MODE: Simulating finance overview (No DB connected)");
-    return {
-      categories: [
-        { name: "Housing", total: 1200, count: 1 },
-        { name: "Food", total: 500, count: 10 },
-        { name: "Transport", total: 300, count: 5 },
-      ],
-      budgets: [
-        { _id: "b1", category: "Food", amount: 600, spent: 500 },
-        { _id: "b2", category: "Transport", amount: 400, spent: 300 },
-      ],
-      goals: [
-        { _id: "g1", title: "Tesla Model S Plaid", targetAmount: 130000, currentAmount: 45000 },
-      ],
-      bills: [
-        { _id: "bl1", title: "Electricity", amount: 150, dueDate: new Date() },
-      ]
-    };
-  }
   const [categories, budgets, goals, bills] = await Promise.all([
     CategoryModel.find({ userId }),
     BudgetModel.find({ userId }),

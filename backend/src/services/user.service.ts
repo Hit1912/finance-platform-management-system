@@ -7,16 +7,6 @@ import { NotFoundException } from "../utils/app-error";
 import { UpdateUserType } from "../validators/user.validator";
 
 export const findByIdUserService = async (userId: string) => {
-  // MOCK MODE: Fallback if DB is not connected
-  if (mongoose.connection.readyState !== 1) {
-    console.log("MOCK MODE: Simulating findById (No DB connected)");
-    return {
-      _id: "mock_user_id",
-      name: "Mock User",
-      email: "mock@example.com",
-      profilePicture: "",
-    };
-  }
   const user = await UserModel.findById(userId);
   return user?.omitPassword();
 };

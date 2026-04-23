@@ -14,29 +14,6 @@ export const summaryAnalyticsService = async (
   customTo?: Date,
   keyword?: string
 ) => {
-  // MOCK MODE: Fallback if DB is not connected
-  if (mongoose.connection.readyState !== 1) {
-    console.log("MOCK MODE: Simulating summary analytics (No DB connected)");
-    return {
-      availableBalance: 2500.5,
-      totalIncome: 5000.0,
-      totalExpenses: 2499.5,
-      savingRate: { percentage: 50.01, expenseRatio: 49.99 },
-      transactionCount: 15,
-      percentageChange: {
-        income: 10.5,
-        expenses: -5.2,
-        balance: 15.8,
-        previousValues: {
-          incomeAmount: 4500.0,
-          expenseAmount: 2650.0,
-          balanceAmount: 1850.0,
-        },
-      },
-      preset: { value: "allTime", label: "All Time" },
-    };
-  }
-
   const range = getDateRange(dateRangePreset, customFrom, customTo);
 
   const { from, to, value: rangeValue } = range;
@@ -286,21 +263,6 @@ export const chartAnalyticsService = async (
   customTo?: Date,
   keyword?: string
 ) => {
-  // MOCK MODE: Fallback if DB is not connected
-  if (mongoose.connection.readyState !== 1) {
-    console.log("MOCK MODE: Simulating chart analytics (No DB connected)");
-    return {
-      chartData: [
-        { date: "2024-03-01", income: 100, expenses: 50 },
-        { date: "2024-03-05", income: 200, expenses: 150 },
-        { date: "2024-03-10", income: 150, expenses: 200 },
-        { date: "2024-03-15", income: 300, expenses: 100 },
-      ],
-      totalIncomeCount: 10,
-      totalExpenseCount: 5,
-      preset: { value: "allTime", label: "All Time" },
-    };
-  }
   const range = getDateRange(dateRangePreset, customFrom, customTo);
   const { from, to, value: rangeValue } = range;
 
@@ -425,20 +387,6 @@ export const expensePieChartBreakdownService = async (
   customTo?: Date,
   keyword?: string
 ) => {
-  // MOCK MODE: Fallback if DB is not connected
-  if (mongoose.connection.readyState !== 1) {
-    console.log("MOCK MODE: Simulating pie chart breakdown (No DB connected)");
-    return {
-      totalSpent: 2499.5,
-      breakdown: [
-        { name: "Housing", value: 1200, percentage: 48 },
-        { name: "Food", value: 500, percentage: 20 },
-        { name: "Transport", value: 300, percentage: 12 },
-        { name: "others", value: 499.5, percentage: 20 },
-      ],
-      preset: { value: "allTime", label: "All Time" },
-    };
-  }
   const range = getDateRange(dateRangePreset, customFrom, customTo);
   const { from, to, value: rangeValue } = range;
 
