@@ -12,6 +12,20 @@ import { calulateNextReportDate } from "../utils/helper";
 import { signJwtToken } from "../utils/jwt";
 
 export const registerService = async (body: RegisterSchemaType) => {
+  // MOCK MODE: Fallback if DB is not connected
+  if (mongoose.connection.readyState !== 1) {
+    console.log("MOCK MODE: Simulating registration (No DB connected)");
+    return {
+      user: {
+        _id: "mock_user_id",
+        name: body.name,
+        email: body.email,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      }
+    };
+  }
+
   const { email } = body;
 
   const existingUser = await UserModel.findOne({ email });
@@ -36,6 +50,36 @@ export const registerService = async (body: RegisterSchemaType) => {
 };
 
 export const loginService = async (body: LoginSchemaType) => {
+  // MOCK MODE: Fallback if DB is not connected
+  if (mongoose.connection.readyState !== 1) {
+    console.log("MOCK MODE: Simulating login (No DB connected)");
+    const { token, expiresAt } = signJwtToken({ userId: "mock_user_id" });
+    
+    // Extract name from email (e.g., hit.dungrani@gmail.com -> Hit Dungrani)
+    const nameFromEmail = body.email
+      .split("@")[0]
+      .split(/[._-]/)
+      .map(part => part.charAt(0).toUpperCase() + part.slice(1))
+      .join(" ");
+
+    return {
+      user: {
+        _id: "mock_user_id",
+        name: nameFromEmail || "User",
+        email: body.email,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      accessToken: token,
+      expiresAt,
+      reportSetting: {
+        _id: "mock_setting_id",
+        frequency: ReportFrequencyEnum.MONTHLY,
+        isEnabled: true
+      }
+    };
+  }
+
   const { email, password } = body;
   const user = await UserModel.findOne({ email });
   if (!user) throw new NotFoundException("Email/password not found");
