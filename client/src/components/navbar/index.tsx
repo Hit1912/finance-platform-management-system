@@ -9,11 +9,15 @@ import { useDispatch } from "react-redux";
 import { setSearchTerm } from "@/features/settings/settingsSlice";
 import { useNavigate } from "react-router-dom";
 
+import Logo from "../logo/logo";
+import { useIsMobile } from "@/hooks/use-mobile";
+
 const Navbar = () => {
   const { user } = useTypedSelector((state) => state.auth);
   const { searchTerm } = useTypedSelector((state) => state.settings);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const isMobile = useIsMobile();
   const [searchValue, setSearchValue] = useState("");
   const [isLogoutDialogOpen, setIsLogoutDialogOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -94,7 +98,10 @@ const Navbar = () => {
           scrolled && "border-accent-purple/20 bg-slate-950/90"
         )}
       >
-        <div className="h-full px-8 flex items-center justify-between">
+        <div className="h-full px-4 md:px-8 flex items-center justify-between gap-4">
+          {/* Logo for mobile */}
+          {isMobile && <Logo variant="light" className="scale-75 -ml-2" />}
+
           {/* Left - Search */}
           <div className="flex-1 max-w-lg hidden md:block">
             <div className="relative group">

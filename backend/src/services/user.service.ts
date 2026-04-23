@@ -7,6 +7,22 @@ import { NotFoundException } from "../utils/app-error";
 import { UpdateUserType } from "../validators/user.validator";
 
 export const findByIdUserService = async (userId: string) => {
+  // MOCK MODE: If DB is not connected, return a fake user object
+  if (mongoose.connection.readyState !== 1) {
+    return {
+      _id: userId,
+      name: "Mock User",
+      email: "mock@example.com",
+      profilePicture: "https://github.com/shadcn.png",
+      omitPassword: () => ({
+        _id: userId,
+        name: "Mock User",
+        email: "mock@example.com",
+        profilePicture: "https://github.com/shadcn.png",
+      }),
+    } as any;
+  }
+
   const user = await UserModel.findById(userId);
   return user?.omitPassword();
 };
@@ -16,6 +32,17 @@ export const updateUserService = async (
   body: UpdateUserType,
   profilePic?: Express.Multer.File
 ) => {
+  // MOCK MODE: If DB is not connected, return a fake updated user
+  if (mongoose.connection.readyState !== 1) {
+    console.log("MOCK MODE: Simulating user update (No DB connected)");
+    return {
+      _id: userId,
+      name: body.name || "Mock User",
+      email: "mock@example.com",
+      profilePicture: "https://github.com/shadcn.png",
+    } as any;
+  }
+
   const user = await UserModel.findById(userId);
   if (!user) throw new NotFoundException("User not found");
 

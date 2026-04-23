@@ -65,7 +65,7 @@ export const getAllTransactionController = asyncHandler(
 export const getTransactionByIdController = asyncHandler(
   async (req: Request, res: Response) => {
     const userId = req.user?._id;
-    const transactionId = transactionIdSchema.parse(req.params.id);
+    const transactionId = transactionIdSchema.parse(req.params.id as string);
 
     const transaction = await getTransactionByIdService(userId, transactionId);
 
@@ -79,7 +79,7 @@ export const getTransactionByIdController = asyncHandler(
 export const duplicateTransactionController = asyncHandler(
   async (req: Request, res: Response) => {
     const userId = req.user?._id;
-    const transactionId = transactionIdSchema.parse(req.params.id);
+    const transactionId = transactionIdSchema.parse(req.params.id as string);
 
     const transaction = await duplicateTransactionService(
       userId,
@@ -96,7 +96,7 @@ export const duplicateTransactionController = asyncHandler(
 export const updateTransactionController = asyncHandler(
   async (req: Request, res: Response) => {
     const userId = req.user?._id;
-    const transactionId = transactionIdSchema.parse(req.params.id);
+    const transactionId = transactionIdSchema.parse(req.params.id as string);
     const body = updateTransactionSchema.parse(req.body);
 
     await updateTransactionService(userId, transactionId, body);
@@ -110,7 +110,7 @@ export const updateTransactionController = asyncHandler(
 export const deleteTransactionController = asyncHandler(
   async (req: Request, res: Response) => {
     const userId = req.user?._id;
-    const transactionId = transactionIdSchema.parse(req.params.id);
+    const transactionId = transactionIdSchema.parse(req.params.id as string);
 
     await deleteTransactionService(userId, transactionId);
 

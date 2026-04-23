@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import axios from "axios";
 import TransactionModel, {
   TransactionTypeEnum,
@@ -57,6 +58,53 @@ export const getAllTransactionService = async (
     pageNumber: number;
   }
 ) => {
+  // MOCK MODE: If DB is not connected, return fake transactions
+  if (mongoose.connection.readyState !== 1) {
+    console.log("MOCK MODE: Returning fake transactions (No DB connected)");
+    const mockTransactions = [
+      {
+        _id: "mock_tx_1",
+        title: "Salary",
+        amount: 5000,
+        type: TransactionTypeEnum.INCOME,
+        category: "Work",
+        date: new Date(),
+        userId: userId,
+        createdAt: new Date()
+      },
+      {
+        _id: "mock_tx_2",
+        title: "Grocery Shopping",
+        amount: 150,
+        type: TransactionTypeEnum.EXPENSE,
+        category: "Food",
+        date: new Date(),
+        userId: userId,
+        createdAt: new Date()
+      },
+      {
+        _id: "mock_tx_3",
+        title: "Rent",
+        amount: 1200,
+        type: TransactionTypeEnum.EXPENSE,
+        category: "Housing",
+        date: new Date(),
+        userId: userId,
+        createdAt: new Date()
+      }
+    ];
+    return {
+      transations: mockTransactions,
+      pagination: {
+        pageSize: pagination.pageSize,
+        pageNumber: pagination.pageNumber,
+        totalCount: 3,
+        totalPages: 1,
+        skip: 0
+      }
+    };
+  }
+
   const { keyword, type, recurringStatus } = filters;
 
   const filterConditions: Record<string, any> = {

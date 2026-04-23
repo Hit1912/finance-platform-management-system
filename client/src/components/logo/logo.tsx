@@ -4,11 +4,11 @@ import { Link } from "react-router-dom"
 import { motion } from "framer-motion"
 import { cn } from "@/lib/utils"
 
-const Logo = (props: { url?: string; variant?: "light" | "dark" }) => {
+const Logo = (props: { url?: string; variant?: "light" | "dark", className?: string }) => {
   const isLight = props.variant === "light";
 
   return (
-    <Link to={props.url || PROTECTED_ROUTES.OVERVIEW} className="flex items-center gap-2 group">
+    <Link to={props.url || PROTECTED_ROUTES.OVERVIEW} className={cn("flex items-center gap-2 group", props.className)}>
       <motion.div
         whileHover={{ scale: 1.15, rotate: -5 }}
         whileTap={{ scale: 0.9 }}

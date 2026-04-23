@@ -66,11 +66,8 @@ const SignInForm = ({
         className={cn("flex flex-col gap-6", className)}
         {...props}
       >
-        <div className="flex flex-col items-center gap-2 text-center mb-4">
-          <h1 className="text-3xl font-bold tracking-tight text-white glow-text">Login to your account</h1>
-          <p className="text-balance text-sm text-slate-400">
-            Enter your email below to login to your account
-          </p>
+        <div className="flex flex-col items-center gap-2 text-center mb-2">
+          {/* Header removed as it is already in the parent component */}
         </div>
         <div className="grid gap-6">
           <div className="grid gap-2">
@@ -141,11 +138,11 @@ const SignInForm = ({
             Continue with GitHub
           </Button>
         </div>
-        <div className="text-center text-sm">
-          Don&apos;t have an account?{" "}
+        <div className="text-center text-sm mt-4">
+          <span className="text-slate-400">Don&apos;t have an account?</span>{" "}
           <Link
             to={AUTH_ROUTES.SIGN_UP}
-            className="text-primary hover:text-primary/80 font-semibold underline underline-offset-4 transition-colors"
+            className="text-indigo-400 hover:text-indigo-300 font-bold underline underline-offset-4 transition-colors"
           >
             Create an account
           </Link>

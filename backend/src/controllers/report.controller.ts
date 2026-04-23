@@ -75,7 +75,7 @@ export const generateReportController = asyncHandler(
 export const resendReportController = asyncHandler(
   async (req: Request, res: Response) => {
     const userId = req.user?._id;
-    const { id } = req.params;
+    const id = req.params.id as string;
 
     await resendReportService(userId, id);
 
@@ -88,7 +88,7 @@ export const resendReportController = asyncHandler(
 export const deleteReportController = asyncHandler(
   async (req: Request, res: Response) => {
     const userId = req.user?._id;
-    const { id } = req.params;
+    const id = req.params.id as string;
 
     await deleteReportService(userId, id);
 
