@@ -32,15 +32,26 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
-  [apiClient.reducerPath]: apiClient.reducer, // Add API client reducer to root reducer
-  auth: authReducer, // Add auth reducer to root reducer
+  [apiClient.reducerPath]: apiClient.reducer,
+  auth: authReducer,
   settings: settingsReducer,
 });
+
+// Root reducer to handle full state reset on logout
+const resettableRootReducer = (state: any, action: any) => {
+  if (action.type === "auth/logout") {
+    // Clear the persisted state from storage
+    storage.removeItem("persist:root");
+    // Reset the entire state
+    state = undefined;
+  }
+  return rootReducer(state, action);
+};
 
 // Create a persisted version of the root reducer
 const persistedReducer = persistReducer<RootReducerType>(
   persistConfig,
-  rootReducer
+  resettableRootReducer as any
 );
 
 const reduxPersistActions = [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER];
