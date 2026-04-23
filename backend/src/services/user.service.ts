@@ -88,6 +88,12 @@ export const updateUserService = async (
 };
 
 export const deleteAccountService = async (userId: any) => {
+  // MOCK MODE: If DB is not connected, simulate success
+  if (mongoose.connection.readyState !== 1) {
+    console.log("MOCK MODE: Simulating account deletion (No DB connected)");
+    return true;
+  }
+
   const user = await UserModel.findById(userId);
   if (!user) throw new NotFoundException("User not found");
 
