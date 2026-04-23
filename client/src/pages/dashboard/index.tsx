@@ -15,8 +15,13 @@ import { useNavigate } from "react-router-dom";
 import { PROTECTED_ROUTES } from "@/routes/common/routePath";
 import { Button } from "@/components/ui/button";
 
+import { DateRangePreset } from "@/enums/date-range.enum";
+
 const Dashboard = () => {
-  const [dateRange, _setDateRange] = useState<DateRangeType>(null);
+  const [dateRange, _setDateRange] = useState<DateRangeType>({
+    value: DateRangePreset.ALL_TIME,
+    label: "All Time",
+  });
   const navigate = useNavigate();
 
   // Apply premium animations
