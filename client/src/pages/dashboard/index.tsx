@@ -15,11 +15,13 @@ import { useNavigate } from "react-router-dom";
 import { PROTECTED_ROUTES } from "@/routes/common/routePath";
 import { Button } from "@/components/ui/button";
 
-import { DateRangePreset } from "@/enums/date-range.enum";
+import { DateRangeEnum, DateRangeType } from "@/components/date-range-select";
 
 const Dashboard = () => {
   const [dateRange, _setDateRange] = useState<DateRangeType>({
-    value: DateRangePreset.ALL_TIME,
+    from: null,
+    to: null,
+    value: DateRangeEnum.ALL_TIME,
     label: "All Time",
   });
   const navigate = useNavigate();
