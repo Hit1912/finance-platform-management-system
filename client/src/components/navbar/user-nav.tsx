@@ -82,7 +82,10 @@ export function UserNav({
 
           <DropdownMenuItem 
             className="flex items-center justify-between h-14 px-6 rounded-2xl cursor-pointer bg-white/5 border border-white/5 hover:bg-rose-500 hover:border-rose-500 hover:text-white transition-all duration-300 group"
-            onClick={onLogout}
+            onSelect={(e) => {
+              e.preventDefault();
+              onLogout();
+            }}
           >
             <div className="flex items-center gap-3">
                <LogOut className="size-4 text-rose-500 group-hover:text-white transition-colors" />
