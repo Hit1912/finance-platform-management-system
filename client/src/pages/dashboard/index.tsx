@@ -7,7 +7,6 @@ import DashboardRecentTransactions from "./dashboard-recent-transactions";
 import DashboardBillsPreview from "./_component/dashboard-bills-preview";
 import DashboardBudgetPreview from "./_component/dashboard-budget-preview";
 import { useState } from "react";
-import { DateRangeType } from "@/components/date-range-select";
 import { usePageTransition, useHoverPulse, useFloatingAnimation } from "@/hooks/use-gsap";
 import { Card } from "@/components/ui/card";
 import { Trophy } from "lucide-react";
