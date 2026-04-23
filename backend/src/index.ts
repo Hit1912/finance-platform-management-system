@@ -44,14 +44,12 @@ app.get(
   })
 );
 
-import { checkDbConnection } from "./middlewares/dbCheck.middleware";
-
-app.use(`${BASE_PATH}/auth`, checkDbConnection, authRoutes);
-app.use(`${BASE_PATH}/user`, passportAuthenticateJwt, checkDbConnection, userRoutes);
-app.use(`${BASE_PATH}/transaction`, passportAuthenticateJwt, checkDbConnection, transactionRoutes);
-app.use(`${BASE_PATH}/report`, passportAuthenticateJwt, checkDbConnection, reportRoutes);
-app.use(`${BASE_PATH}/analytics`, passportAuthenticateJwt, checkDbConnection, analyticsRoutes);
-app.use(`${BASE_PATH}/finance`, passportAuthenticateJwt, checkDbConnection, financeRoutes);
+app.use(`${BASE_PATH}/auth`, authRoutes);
+app.use(`${BASE_PATH}/user`, passportAuthenticateJwt, userRoutes);
+app.use(`${BASE_PATH}/transaction`, passportAuthenticateJwt, transactionRoutes);
+app.use(`${BASE_PATH}/report`, passportAuthenticateJwt, reportRoutes);
+app.use(`${BASE_PATH}/analytics`, passportAuthenticateJwt, analyticsRoutes);
+app.use(`${BASE_PATH}/finance`, passportAuthenticateJwt, financeRoutes);
 
 app.use(errorHandler);
 
