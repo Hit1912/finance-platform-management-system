@@ -14,27 +14,6 @@ export const summaryAnalyticsService = async (
   customTo?: Date,
   keyword?: string
 ) => {
-  // MOCK MODE: If DB is not connected, return fake summary
-  if (mongoose.connection.readyState !== 1) {
-    console.log("MOCK MODE: Returning fake summary (No DB connected)");
-    return {
-      availableBalance: 3650.00,
-      totalIncome: 5000.00,
-      totalExpenses: 1350.00,
-      savingRate: { percentage: 73, expenseRatio: 27 },
-      transactionCount: 3,
-      percentageChange: {
-        income: 10,
-        expenses: -5,
-        balance: 15,
-        prevPeriodFrom: new Date(),
-        prevPeriodTo: new Date(),
-        previousValues: { incomeAmount: 4500, expenseAmount: 1420, balanceAmount: 3080 }
-      },
-      preset: { value: DateRangeEnum.LAST_30_DAYS, label: "Last 30 Days" }
-    };
-  }
-
   const range = getDateRange(dateRangePreset, customFrom, customTo);
 
   const { from, to, value: rangeValue } = range;
@@ -284,24 +263,6 @@ export const chartAnalyticsService = async (
   customTo?: Date,
   keyword?: string
 ) => {
-  // MOCK MODE: If DB is not connected, return fake chart data
-  if (mongoose.connection.readyState !== 1) {
-    console.log("MOCK MODE: Returning fake chart data (No DB connected)");
-    const mockChartData = [
-      { date: "2024-04-18", income: 0, expenses: 150 },
-      { date: "2024-04-19", income: 5000, expenses: 0 },
-      { date: "2024-04-20", income: 0, expenses: 1200 },
-      { date: "2024-04-21", income: 0, expenses: 50 },
-      { date: "2024-04-22", income: 0, expenses: 100 }
-    ];
-    return {
-      chartData: mockChartData,
-      totalIncomeCount: 1,
-      totalExpenseCount: 4,
-      preset: { value: DateRangeEnum.LAST_30_DAYS, label: "Last 30 Days" }
-    };
-  }
-
   const range = getDateRange(dateRangePreset, customFrom, customTo);
   const { from, to, value: rangeValue } = range;
 
@@ -426,19 +387,6 @@ export const expensePieChartBreakdownService = async (
   customTo?: Date,
   keyword?: string
 ) => {
-  // MOCK MODE: If DB is not connected, return fake breakdown
-  if (mongoose.connection.readyState !== 1) {
-    console.log("MOCK MODE: Returning fake breakdown (No DB connected)");
-    return {
-      totalSpent: 1350.00,
-      breakdown: [
-        { name: "Housing", value: 1200, percentage: 89 },
-        { name: "Food", value: 150, percentage: 11 }
-      ],
-      preset: { value: DateRangeEnum.LAST_30_DAYS, label: "Last 30 Days" }
-    };
-  }
-
   const range = getDateRange(dateRangePreset, customFrom, customTo);
   const { from, to, value: rangeValue } = range;
 
