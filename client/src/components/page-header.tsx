@@ -21,8 +21,8 @@ const PageHeader = ({ title, subtitle, rightAction, renderPageHeader }: PageHead
             <div className="w-full flex flex-col gap-4 items-start justify-start lg:items-end lg:flex-row lg:justify-between">
               {(title || subtitle) && (
                 <div className="space-y-2">
-                  {title && <h2 className="text-3xl lg:text-5xl font-bold tracking-tight glow-text">{title}</h2>}
-                  {subtitle && <p className="text-white/50 text-base lg:text-lg font-light">{subtitle}</p>}
+                  {title && <h2 className="text-2xl md:text-3xl lg:text-5xl font-bold tracking-tight glow-text">{title}</h2>}
+                  {subtitle && <p className="text-white/50 text-sm md:text-base lg:text-lg font-light">{subtitle}</p>}
                 </div>
               )}
               {rightAction && (

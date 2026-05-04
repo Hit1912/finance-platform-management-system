@@ -164,7 +164,7 @@ const Landing = () => {
             <span className="inline-block py-1.5 px-5 rounded-full border border-indigo-500/30 bg-indigo-500/10 text-indigo-400 text-[10px] font-black uppercase tracking-[0.3em] mb-8">
               Experience the 3D Financial Future
             </span>
-            <h1 className="text-7xl md:text-9xl font-black tracking-tighter family-outfit leading-[0.85] mb-10">
+            <h1 className="text-5xl md:text-7xl lg:text-9xl font-black tracking-tighter family-outfit leading-[0.85] mb-10">
               Wealth <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-cyan-400">Reimagined.</span>
             </h1>
@@ -173,13 +173,13 @@ const Landing = () => {
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
               <Link to={AUTH_ROUTES.SIGN_UP}>
-                <Button className="h-20 px-12 text-xl bg-indigo-600 hover:bg-indigo-700 text-white font-black rounded-[24px] shadow-[0_20px_50px_rgba(79,70,229,0.4)] group transition-all hover:scale-105">
+                <Button className="h-16 md:h-20 px-8 md:px-12 text-lg md:text-xl bg-indigo-600 hover:bg-indigo-700 text-white font-black rounded-[24px] shadow-[0_20px_50px_rgba(79,70,229,0.4)] group transition-all hover:scale-105">
                   Start Your Journey
                   <ArrowRight className="ml-3 size-6 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
               <Link to={AUTH_ROUTES.SIGN_IN}>
-                <Button variant="outline" className="h-20 px-12 text-xl border-white/10 bg-white/5 hover:bg-white/10 text-white font-black rounded-[24px] hover:scale-105 transition-all">
+                <Button variant="outline" className="h-16 md:h-20 px-8 md:px-12 text-lg md:text-xl border-white/10 bg-white/5 hover:bg-white/10 text-white font-black rounded-[24px] hover:scale-105 transition-all">
                   Live Demo
                 </Button>
               </Link>
@@ -329,11 +329,11 @@ const Landing = () => {
       {/* Final CTA */}
       <section className="py-40 px-6 relative overflow-hidden">
         <div className="absolute inset-0 bg-indigo-600/10 -z-10" />
-        <div className="max-w-4xl mx-auto text-center bg-white/5 border border-white/10 rounded-[60px] p-20 backdrop-blur-3xl relative overflow-hidden">
+        <div className="max-w-4xl mx-auto text-center bg-white/5 border border-white/10 rounded-[32px] md:rounded-[60px] p-10 md:p-20 backdrop-blur-3xl relative overflow-hidden">
            <div className="absolute -top-20 -right-20 size-60 bg-indigo-500/20 blur-[100px] rounded-full" />
            <h2 className="text-5xl md:text-7xl font-black family-outfit tracking-tighter mb-8 leading-tight">Ready to elevate your <br /> financial status?</h2>
            <Link to={AUTH_ROUTES.SIGN_UP}>
-             <Button className="h-20 px-16 text-2xl bg-white text-slate-950 hover:bg-slate-200 font-black rounded-3xl transition-transform hover:scale-105 active:scale-95">
+             <Button className="h-16 md:h-20 px-10 md:px-16 text-lg md:text-2xl bg-white text-slate-950 hover:bg-slate-200 font-black rounded-2xl md:rounded-3xl transition-transform hover:scale-105 active:scale-95">
                Get Started Now
              </Button>
            </Link>

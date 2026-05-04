@@ -219,58 +219,61 @@ export function DataTable<TData>({
         {isLoading ? (
           <TableSkeleton columns={6} rows={20} />
         ) : (
-          <Table
-            className={cn(
-              table.getRowModel().rows.length === 0 ? "h-[200px]" : ""
-            )}
-          >
-            <TableHeader className="bg-white/5 border-b border-white/5">
-              {table.getHeaderGroups().map((group) => (
-                <TableRow key={group.id} className="hover:bg-transparent border-b-0">
-                  {group.headers.map((header) => (
-                    <TableHead
-                      key={header.id}
-                      className="!font-bold !text-[11px] uppercase tracking-widest text-slate-400 py-4 h-auto"
-                    >
-                      {flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
-                    </TableHead>
-                  ))}
-                </TableRow>
-              ))}
-            </TableHeader>
-            <TableBody>
-              {table.getRowModel().rows.length > 0 ? (
-                table.getRowModel().rows.map((row) => (
-                  <TableRow
-                    key={row.id}
-                    data-state={row.getIsSelected() && "selected"}
-                    className="border-b border-white/[0.04] hover:bg-white/[0.04] transition-colors group/row"
-                  >
-                    {row.getVisibleCells().map((cell) => (
-                      <TableCell key={cell.id} className="!text-[13px] py-4 text-slate-300 group-hover/row:text-white transition-colors">
+          <div className="overflow-x-auto custom-scrollbar">
+            <Table
+              className={cn(
+                "min-w-[800px] md:min-w-full",
+                table.getRowModel().rows.length === 0 ? "h-[200px]" : ""
+              )}
+            >
+              <TableHeader className="bg-white/5 border-b border-white/5">
+                {table.getHeaderGroups().map((group) => (
+                  <TableRow key={group.id} className="hover:bg-transparent border-b-0">
+                    {group.headers.map((header) => (
+                      <TableHead
+                        key={header.id}
+                        className="!font-bold !text-[11px] uppercase tracking-widest text-slate-400 py-4 h-auto"
+                      >
                         {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext()
+                          header.column.columnDef.header,
+                          header.getContext()
                         )}
-                      </TableCell>
+                      </TableHead>
                     ))}
                   </TableRow>
-                ))
-              ) : (
-                <TableRow>
-                  <TableCell
-                    colSpan={columns.length}
-                    className="text-center h-24"
-                  >
-                    <EmptyState title="No records found" description="" />
-                  </TableCell>
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
+                ))}
+              </TableHeader>
+              <TableBody>
+                {table.getRowModel().rows.length > 0 ? (
+                  table.getRowModel().rows.map((row) => (
+                    <TableRow
+                      key={row.id}
+                      data-state={row.getIsSelected() && "selected"}
+                      className="border-b border-white/[0.04] hover:bg-white/[0.04] transition-colors group/row"
+                    >
+                      {row.getVisibleCells().map((cell) => (
+                        <TableCell key={cell.id} className="!text-[13px] py-4 text-slate-300 group-hover/row:text-white transition-colors">
+                          {flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext()
+                          )}
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                  ))
+                ) : (
+                  <TableRow>
+                    <TableCell
+                      colSpan={columns.length}
+                      className="text-center h-24"
+                    >
+                      <EmptyState title="No records found" description="" />
+                    </TableCell>
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </div>
         )}
       </div>
 
