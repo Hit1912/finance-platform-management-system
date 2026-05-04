@@ -269,6 +269,63 @@ const Landing = () => {
         </div>
       </section>
 
+      {/* Analytics Section */}
+      <section id="analytics" className="py-24 px-6 bg-slate-950/50 relative">
+        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-20">
+          <div className="lg:w-1/2">
+            <h2 className="text-5xl font-black family-outfit mb-6">Real-time Financial <br /> Intelligence.</h2>
+            <p className="text-slate-400 text-lg mb-10 leading-relaxed font-medium">
+              Experience a new dimension of data. Our 3D mapping technology transforms complex spreadsheets into intuitive, actionable insights. Track every penny with surgical precision.
+            </p>
+            <div className="grid grid-cols-2 gap-8">
+              <div>
+                <h4 className="text-white font-black text-2xl mb-2">99%</h4>
+                <p className="text-slate-500 text-sm font-bold uppercase tracking-widest">AI Precision</p>
+              </div>
+              <div>
+                <h4 className="text-white font-black text-2xl mb-2">24/7</h4>
+                <p className="text-slate-500 text-sm font-bold uppercase tracking-widest">Real-time Updates</p>
+              </div>
+            </div>
+          </div>
+          <div className="lg:w-1/2 relative">
+             <div className="absolute inset-0 bg-indigo-600/20 blur-[80px] rounded-full" />
+             <img 
+                src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=2015" 
+                alt="Analytics Illustration" 
+                className="rounded-[40px] border border-white/10 relative z-10 shadow-2xl"
+              />
+          </div>
+        </div>
+      </section>
+
+      {/* Security Section */}
+      <section id="security" className="py-24 px-6 bg-slate-950 relative overflow-hidden">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="size-20 bg-emerald-500/10 rounded-3xl flex items-center justify-center mx-auto mb-10 border border-emerald-500/20">
+             <ShieldCheck className="size-10 text-emerald-400" />
+          </div>
+          <h2 className="text-5xl font-black family-outfit mb-6">Your Privacy is <br /> our Core Protocol.</h2>
+          <p className="text-slate-400 text-lg mb-12 font-medium max-w-2xl mx-auto">
+            We use end-to-end encryption and zero-knowledge architecture. Not even we can see your financial data. Your trust is our most valuable asset.
+          </p>
+          <div className="flex flex-wrap justify-center gap-10">
+             <div className="flex items-center gap-3">
+                <div className="size-2 bg-emerald-400 rounded-full animate-pulse" />
+                <span className="text-xs font-black uppercase tracking-widest text-slate-400">256-bit AES Encryption</span>
+             </div>
+             <div className="flex items-center gap-3">
+                <div className="size-2 bg-emerald-400 rounded-full animate-pulse" />
+                <span className="text-xs font-black uppercase tracking-widest text-slate-400">SOC 2 Type II Compliant</span>
+             </div>
+             <div className="flex items-center gap-3">
+                <div className="size-2 bg-emerald-400 rounded-full animate-pulse" />
+                <span className="text-xs font-black uppercase tracking-widest text-slate-400">Biometric Authentication</span>
+             </div>
+          </div>
+        </div>
+      </section>
+
       {/* Final CTA */}
       <section className="py-40 px-6 relative overflow-hidden">
         <div className="absolute inset-0 bg-indigo-600/10 -z-10" />
