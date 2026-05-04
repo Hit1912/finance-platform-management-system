@@ -6,7 +6,13 @@ const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
 // Mock Database in LocalStorage
 const getDb = (key: string, defaultValue: any) => {
   const data = localStorage.getItem(`mock_finance_${key}`);
-  return data ? JSON.parse(data) : defaultValue;
+  if (!data) return defaultValue;
+  const parsed = JSON.parse(data);
+  // If it's an empty array but we have a non-empty default, use the default
+  if (Array.isArray(parsed) && parsed.length === 0 && Array.isArray(defaultValue) && defaultValue.length > 0) {
+    return defaultValue;
+  }
+  return parsed;
 };
 
 const saveDb = (key: string, data: any) => {
