@@ -10,8 +10,10 @@ import {
   Zap, 
   PieChart, 
   Target, 
-  CreditCard 
+  CreditCard,
+  Menu
 } from "lucide-react";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { AUTH_ROUTES } from "@/routes/common/routePath";
 import { Button } from "@/components/ui/button";
 
@@ -132,12 +134,42 @@ const Landing = () => {
             </div>
             <span className="text-xl font-black tracking-tight family-outfit">DHR Finance</span>
           </div>
+
+          {/* Mobile Menu Trigger */}
+          <div className="flex md:hidden items-center gap-2">
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon" className="text-white">
+                  <Menu className="size-6" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="top" className="bg-slate-950 border-white/5 pt-20">
+                 <div className="flex flex-col gap-6 text-center">
+                    <a href="#features" className="text-xl font-bold text-slate-400 hover:text-white transition-colors">Features</a>
+                    <a href="#analytics" className="text-xl font-bold text-slate-400 hover:text-white transition-colors">Analytics</a>
+                    <a href="#security" className="text-xl font-bold text-slate-400 hover:text-white transition-colors">Security</a>
+                    <hr className="border-white/5" />
+                    <div className="flex flex-col gap-4">
+                      <Link to={AUTH_ROUTES.SIGN_IN}>
+                        <Button variant="ghost" className="w-full text-slate-400 hover:text-white font-bold">Login</Button>
+                      </Link>
+                      <Link to={AUTH_ROUTES.SIGN_UP}>
+                        <Button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl">
+                          Get Started
+                        </Button>
+                      </Link>
+                    </div>
+                 </div>
+              </SheetContent>
+            </Sheet>
+          </div>
+
           <div className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-400">
             <a href="#features" className="hover:text-white transition-colors">Features</a>
             <a href="#analytics" className="hover:text-white transition-colors">Analytics</a>
             <a href="#security" className="hover:text-white transition-colors">Security</a>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="hidden md:flex items-center gap-4">
             <Link to={AUTH_ROUTES.SIGN_IN}>
               <Button variant="ghost" className="text-slate-400 hover:text-white font-bold">Login</Button>
             </Link>
