@@ -29,31 +29,39 @@ const menuItems = [
 
 export const Sidebar = ({ 
   isCollapsed, 
-  setIsCollapsed 
+  setIsCollapsed,
+  isMobile = false,
+  onClose
 }: { 
   isCollapsed: boolean; 
   setIsCollapsed: (val: boolean) => void;
+  isMobile?: boolean;
+  onClose?: () => void;
 }) => {
 
   return (
     <aside 
       className={cn(
-        "h-screen sidebar-bg text-white fixed left-0 top-0 z-50 transition-all duration-300 ease-in-out border-r border-white/5",
-        isCollapsed ? "w-20" : "w-64"
+        "sidebar-bg text-white transition-all duration-300 ease-in-out border-r border-white/5",
+        !isMobile ? "h-screen fixed left-0 top-0 z-50" : "h-full w-full border-r-0",
+        isCollapsed ? "w-20" : "w-64",
+        isMobile && "w-full"
       )}
     >
       <div className="flex flex-col h-full">
         {/* Sidebar Header */}
         <div className="h-16 flex items-center px-4 mb-4 mt-2 justify-between">
           {!isCollapsed && <Logo variant="light" />}
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setIsCollapsed(!isCollapsed)}
-            className="text-white hover:bg-white/10"
-          >
-            {isCollapsed ? <ChevronRight size={20} /> : <ChevronLeft size={20} />}
-          </Button>
+          {!isMobile && (
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setIsCollapsed(!isCollapsed)}
+              className="text-white hover:bg-white/10"
+            >
+              {isCollapsed ? <ChevronRight size={20} /> : <ChevronLeft size={20} />}
+            </Button>
+          )}
         </div>
 
         {/* Navigation Items */}
@@ -62,6 +70,7 @@ export const Sidebar = ({
             <NavLink
               key={item.path}
               to={item.path}
+              onClick={() => isMobile && onClose?.()}
               className={({ isActive }) => cn(
                 "group flex items-center px-3 py-3 text-sm font-bold rounded-xl transition-all duration-300",
                 isActive 

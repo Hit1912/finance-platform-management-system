@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Search, Bell } from "lucide-react";
+import { Search, Bell, Menu } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
 import { UserNav } from "./user-nav";
@@ -11,6 +11,8 @@ import { useNavigate } from "react-router-dom";
 
 import Logo from "../logo/logo";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
+import { Sidebar } from "../sidebar";
 
 const Navbar = () => {
   const { user } = useTypedSelector((state) => state.auth);
@@ -18,6 +20,7 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isMobile = useIsMobile();
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [isLogoutDialogOpen, setIsLogoutDialogOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -99,8 +102,29 @@ const Navbar = () => {
         )}
       >
         <div className="h-full px-4 md:px-8 flex items-center justify-between gap-4">
-          {/* Logo for mobile */}
-          {isMobile && <Logo variant="light" className="scale-75 -ml-2" />}
+          {/* Menu & Logo for mobile */}
+          <div className="flex items-center gap-2">
+            {isMobile && (
+              <Sheet open={isSidebarOpen} onOpenChange={setIsSidebarOpen}>
+                <SheetTrigger asChild>
+                  <Button variant="ghost" size="icon" className="text-white hover:bg-white/10 -ml-2">
+                    <Menu className="size-5" />
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="left" className="p-0 w-72 border-r-0 bg-transparent">
+                  <div className="h-full sidebar-bg">
+                    <Sidebar 
+                      isCollapsed={false} 
+                      setIsCollapsed={() => {}} 
+                      isMobile={true} 
+                      onClose={() => setIsSidebarOpen(false)} 
+                    />
+                  </div>
+                </SheetContent>
+              </Sheet>
+            )}
+            {isMobile && <Logo variant="light" className="scale-75 -ml-2" />}
+          </div>
 
           {/* Left - Search */}
           <div className="flex-1 max-w-lg hidden md:block">
