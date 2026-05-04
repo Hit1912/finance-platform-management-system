@@ -184,6 +184,41 @@ export const mockBaseQuery: BaseQueryFn<
     // ----------------------------------------
     // FINANCE & ANALYTICS
     // ----------------------------------------
+    if (url === "/analytics/summary" && method === "GET") {
+      const income = transactions.filter((t: any) => t.type === 'INCOME').reduce((acc: number, curr: any) => acc + curr.amount, 0);
+      const expenses = transactions.filter((t: any) => t.type === 'EXPENSE').reduce((acc: number, curr: any) => acc + curr.amount, 0);
+      const balance = income - expenses;
+
+      return {
+        data: {
+          message: "Analytics summary retrieved",
+          data: {
+            availableBalance: balance,
+            totalIncome: income,
+            totalExpenses: expenses,
+            transactionCount: transactions.length,
+            savingRate: {
+              percentage: income > 0 ? ((income - expenses) / income) * 100 : 0,
+              expenseRatio: income > 0 ? (expenses / income) * 100 : 0,
+            },
+            percentageChange: {
+              income: 15,
+              expenses: -10,
+              balance: 5,
+              prevPeriodFrom: null,
+              prevPeriodTo: null,
+            },
+            preset: {
+              from: new Date().toISOString(),
+              to: new Date().toISOString(),
+              value: params?.preset || "ALL_TIME",
+              label: "All Time",
+            }
+          },
+        },
+      };
+    }
+
     if (url === "/finance/overview" && method === "GET") {
       const balance = transactions.reduce((acc: number, curr: any) => acc + (curr.type === 'INCOME' ? curr.amount : -curr.amount), 0);
       const income = transactions.filter((t: any) => t.type === 'INCOME').reduce((acc: number, curr: any) => acc + curr.amount, 0);
@@ -217,7 +252,6 @@ export const mockBaseQuery: BaseQueryFn<
     }
 
     if (url === "/analytics/chart" && method === "GET") {
-      // Mock chart data for last 7 days
       const mockChart = [];
       for(let i=6; i>=0; i--) {
         const d = new Date();
@@ -228,17 +262,32 @@ export const mockBaseQuery: BaseQueryFn<
           expenses: Math.floor(Math.random() * 300) + 50,
         });
       }
-      return { data: { data: mockChart } };
+      return { 
+        data: { 
+          message: "Chart data retrieved",
+          data: {
+            chartData: mockChart,
+            totalIncomeCount: 10,
+            totalExpenseCount: 25,
+            preset: { from: "", to: "", value: "ALL_TIME", label: "All Time" }
+          }
+        } 
+      };
     }
 
     if (url === "/analytics/expense-breakdown" && method === "GET") {
       return {
         data: {
-          data: [
-            { category: "Food", amount: 300, color: "#F59E0B" },
-            { category: "Housing", amount: 1200, color: "#EF4444" },
-            { category: "Transport", amount: 150, color: "#3B82F6" },
-          ]
+          message: "Expense breakdown retrieved",
+          data: {
+            totalSpent: 1650,
+            breakdown: [
+              { name: "Food", value: 300, percentage: 18 },
+              { name: "Housing", value: 1200, percentage: 72 },
+              { name: "Transport", value: 150, percentage: 10 },
+            ],
+            preset: { from: "", to: "", value: "ALL_TIME", label: "All Time" }
+          }
         }
       }
     }
