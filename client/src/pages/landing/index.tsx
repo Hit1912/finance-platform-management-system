@@ -283,21 +283,81 @@ const Landing = () => {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-20 px-6 border-t border-white/5 bg-slate-950">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-10">
-          <div className="flex items-center gap-2">
-            <div className="size-8 bg-indigo-600 rounded-lg flex items-center justify-center">
-              <span className="text-lg font-black italic">D</span>
+      {/* Big Footer */}
+      <footer className="py-24 px-6 border-t border-white/5 bg-slate-950 relative overflow-hidden">
+        <div className="absolute bottom-0 left-0 w-full h-1/2 bg-indigo-600/5 blur-[120px] pointer-events-none" />
+        
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
+            {/* Brand Column */}
+            <div className="space-y-6">
+              <div className="flex items-center gap-2">
+                <div className="size-10 bg-indigo-600 rounded-xl flex items-center justify-center">
+                  <span className="text-xl font-black italic">D</span>
+                </div>
+                <span className="text-xl font-black tracking-tight family-outfit text-white">DHR Finance</span>
+              </div>
+              <p className="text-slate-400 text-sm leading-relaxed max-w-[240px]">
+                Empowering the next generation of investors with AI-driven insights and immersive 3D analytics.
+              </p>
+              <div className="flex items-center gap-4">
+                {["Twitter", "LinkedIn", "GitHub", "Discord"].map((social) => (
+                  <div key={social} className="size-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center cursor-pointer hover:bg-indigo-600/20 hover:border-indigo-600/40 transition-all">
+                    <span className="sr-only">{social}</span>
+                    <div className="size-4 bg-slate-400 group-hover:bg-indigo-400" />
+                  </div>
+                ))}
+              </div>
             </div>
-            <span className="text-lg font-black tracking-tight family-outfit">DHR Finance</span>
+
+            {/* Links Columns */}
+            <div>
+              <h4 className="text-white font-black family-outfit uppercase tracking-widest text-xs mb-8">Platform</h4>
+              <ul className="space-y-4 text-sm text-slate-500 font-medium">
+                <li><a href="#" className="hover:text-indigo-400 transition-colors">Analytics Dashboard</a></li>
+                <li><a href="#" className="hover:text-indigo-400 transition-colors">AI Receipt Scanner</a></li>
+                <li><a href="#" className="hover:text-indigo-400 transition-colors">Budget Planner</a></li>
+                <li><a href="#" className="hover:text-indigo-400 transition-colors">Goal Tracking</a></li>
+                <li><a href="#" className="hover:text-indigo-400 transition-colors">API for Developers</a></li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="text-white font-black family-outfit uppercase tracking-widest text-xs mb-8">Resources</h4>
+              <ul className="space-y-4 text-sm text-slate-500 font-medium">
+                <li><a href="#" className="hover:text-indigo-400 transition-colors">Documentation</a></li>
+                <li><a href="#" className="hover:text-indigo-400 transition-colors">Financial Blog</a></li>
+                <li><a href="#" className="hover:text-indigo-400 transition-colors">Security Whitepaper</a></li>
+                <li><a href="#" className="hover:text-indigo-400 transition-colors">Community Forum</a></li>
+                <li><a href="#" className="hover:text-indigo-400 transition-colors">Help Center</a></li>
+              </ul>
+            </div>
+
+            {/* Newsletter Column */}
+            <div>
+              <h4 className="text-white font-black family-outfit uppercase tracking-widest text-xs mb-8">Stay Updated</h4>
+              <p className="text-slate-500 text-sm mb-6">Get the latest market insights and feature updates.</p>
+              <div className="flex gap-2">
+                <input 
+                  type="email" 
+                  placeholder="email@example.com" 
+                  className="bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-sm w-full focus:outline-none focus:border-indigo-500/50"
+                />
+                <Button className="bg-indigo-600 hover:bg-indigo-700 size-10 p-0 rounded-xl">
+                  <ArrowRight className="size-4" />
+                </Button>
+              </div>
+            </div>
           </div>
-          <div className="flex items-center gap-10 text-sm text-slate-500 font-medium">
-            <a href="#" className="hover:text-white transition-colors">Privacy</a>
-            <a href="#" className="hover:text-white transition-colors">Terms</a>
-            <a href="#" className="hover:text-white transition-colors">Support</a>
+
+          <div className="pt-10 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="flex items-center gap-8 text-xs text-slate-600 font-bold uppercase tracking-[0.2em]">
+              <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
+              <a href="#" className="hover:text-white transition-colors">Terms of Use</a>
+              <a href="#" className="hover:text-white transition-colors">Cookie Policy</a>
+            </div>
+            <p className="text-slate-600 text-xs font-medium">© 2026 DHR Finance Global Inc. All rights reserved.</p>
           </div>
-          <p className="text-slate-600 text-sm">© 2026 DHR Finance. Built for the future.</p>
         </div>
       </footer>
     </div>
