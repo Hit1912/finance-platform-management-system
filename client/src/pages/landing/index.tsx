@@ -132,7 +132,7 @@ const Landing = () => {
             <div className="size-10 bg-indigo-600 rounded-xl flex items-center justify-center shadow-[0_0_20px_rgba(79,70,229,0.4)]">
               <span className="text-xl font-black italic">D</span>
             </div>
-            <span className="text-xl font-black tracking-tight family-outfit hidden sm:inline">DHR Finance</span>
+            <span className="text-xl font-black tracking-tight hidden sm:inline">DHR Finance</span>
           </div>
 
           <div className="flex md:hidden items-center gap-2">
