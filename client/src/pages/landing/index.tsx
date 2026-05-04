@@ -137,25 +137,25 @@ const Landing = () => {
 
           <div className="flex md:hidden items-center gap-2">
             <Link to={AUTH_ROUTES.SIGN_IN}>
-              <Button variant="ghost" className="text-slate-400 hover:text-white font-bold text-sm px-2">Login</Button>
+              <Button variant="ghost" className="text-white/70 hover:text-white hover:bg-white/5 font-bold text-sm px-3">Login</Button>
             </Link>
             <Link to={AUTH_ROUTES.SIGN_UP}>
-              <Button size="sm" className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg text-xs">
+              <Button size="sm" className="bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white font-bold rounded-xl text-xs px-4 shadow-lg shadow-indigo-500/20 border-0">
                 Get Started
               </Button>
             </Link>
             
             <Sheet>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="text-white">
+                <Button variant="ghost" size="icon" className="text-white hover:bg-white/5">
                   <Menu className="size-5" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="top" className="bg-slate-950 border-white/5 pt-20">
-                 <div className="flex flex-col gap-6 text-center">
-                    <a href="#features" className="text-xl font-bold text-slate-400 hover:text-white transition-colors">Features</a>
-                    <a href="#analytics" className="text-xl font-bold text-slate-400 hover:text-white transition-colors">Analytics</a>
-                    <a href="#security" className="text-xl font-bold text-slate-400 hover:text-white transition-colors">Security</a>
+              <SheetContent side="top" className="bg-slate-950/95 backdrop-blur-2xl border-white/5 pt-20">
+                 <div className="flex flex-col gap-8 text-center py-10">
+                    <a href="#features" className="text-2xl font-bold text-slate-400 hover:text-white transition-all hover:scale-105">Features</a>
+                    <a href="#analytics" className="text-2xl font-bold text-slate-400 hover:text-white transition-all hover:scale-105">Analytics</a>
+                    <a href="#security" className="text-2xl font-bold text-slate-400 hover:text-white transition-all hover:scale-105">Security</a>
                  </div>
               </SheetContent>
             </Sheet>
@@ -168,10 +168,10 @@ const Landing = () => {
           </div>
           <div className="hidden md:flex items-center gap-4">
             <Link to={AUTH_ROUTES.SIGN_IN}>
-              <Button variant="ghost" className="text-slate-400 hover:text-white font-bold">Login</Button>
+              <Button variant="ghost" className="text-white/70 hover:text-white hover:bg-white/5 font-bold">Login</Button>
             </Link>
             <Link to={AUTH_ROUTES.SIGN_UP}>
-              <Button className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-6 rounded-xl shadow-[0_0_20px_rgba(79,70,229,0.3)]">
+              <Button className="bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white font-bold px-8 rounded-xl shadow-xl shadow-indigo-500/30 border-0 transition-all hover:scale-105 active:scale-95">
                 Get Started
               </Button>
             </Link>
