@@ -1,5 +1,7 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useRef, Suspense } from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { Sphere, MeshDistortMaterial, Float, Stars } from "@react-three/drei";
+import { motion, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
 import { Link } from "react-router-dom";
 import { 
   ArrowRight, 
@@ -13,9 +15,114 @@ import {
 import { AUTH_ROUTES } from "@/routes/common/routePath";
 import { Button } from "@/components/ui/button";
 
+// --- 3D Background Components ---
+
+const AnimatedSphere = () => {
+  return (
+    <Float speed={1.5} rotationIntensity={1} floatIntensity={2}>
+      <Sphere args={[1, 100, 200]} scale={2.4}>
+        <MeshDistortMaterial
+          color="#4f46e5"
+          attach="material"
+          distort={0.4}
+          speed={1.5}
+          roughness={0}
+        />
+      </Sphere>
+    </Float>
+  );
+};
+
+const Background3D = () => {
+  return (
+    <div className="absolute inset-0 -z-10 h-[800px]">
+      <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
+        <Suspense fallback={null}>
+          <ambientLight intensity={0.5} />
+          <directionalLight position={[10, 10, 5]} intensity={1} />
+          <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
+          <group position={[2.5, 0, 0]}>
+            <AnimatedSphere />
+          </group>
+        </Suspense>
+      </Canvas>
+    </div>
+  );
+};
+
+// --- Interactive 3D Card ---
+
+const FeatureCard = ({ icon, title, desc, delay }: any) => {
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const rotateX = useTransform(y, [-100, 100], [30, -30]);
+  const rotateY = useTransform(x, [-100, 100], [-30, 30]);
+
+  const springConfig = { damping: 20, stiffness: 300 };
+  const springRotateX = useSpring(rotateX, springConfig);
+  const springRotateY = useSpring(rotateY, springConfig);
+
+  function handleMouseMove(event: React.MouseEvent<HTMLDivElement>) {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    x.set(event.clientX - centerX);
+    y.set(event.clientY - centerY);
+  }
+
+  function handleMouseLeave() {
+    x.set(0);
+    y.set(0);
+  }
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        perspective: 1000,
+      }}
+    >
+      <motion.div
+        style={{
+          rotateX: springRotateX,
+          rotateY: springRotateY,
+          transformStyle: "preserve-3d",
+        }}
+        className="p-8 rounded-[32px] bg-white/5 border border-white/5 hover:border-indigo-500/30 transition-colors group relative overflow-hidden"
+      >
+        <div 
+           style={{ transform: "translateZ(50px)" }}
+           className="size-16 rounded-2xl bg-slate-900 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-[0_0_30px_rgba(79,70,229,0.2)]"
+        >
+          {icon}
+        </div>
+        <h3 style={{ transform: "translateZ(40px)" }} className="text-xl font-black mb-3 family-outfit">{title}</h3>
+        <p style={{ transform: "translateZ(30px)" }} className="text-slate-400 text-sm leading-relaxed font-medium">
+          {desc}
+        </p>
+        
+        {/* Glow effect on hover */}
+        <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500/20 to-purple-500/20 blur opacity-0 group-hover:opacity-100 transition-opacity" />
+      </motion.div>
+    </motion.div>
+  );
+};
+
 const Landing = () => {
+  const { scrollYProgress } = useScroll();
+  const scale = useTransform(scrollYProgress, [0, 0.2], [1, 0.95]);
+  const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0.8]);
+
   return (
     <div className="min-h-screen bg-slate-950 text-white selection:bg-indigo-500/30 overflow-x-hidden">
+      <Background3D />
+
       {/* Navbar */}
       <nav className="fixed top-0 w-full z-50 border-b border-white/5 bg-slate-950/50 backdrop-blur-xl">
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
@@ -44,121 +151,141 @@ const Landing = () => {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative pt-40 pb-20 px-6">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-[500px] bg-indigo-600/20 blur-[120px] rounded-full pointer-events-none -z-10" />
-        
-        <div className="max-w-5xl mx-auto text-center">
+      <section className="relative pt-48 pb-20 px-6">
+        <motion.div 
+          style={{ scale, opacity }}
+          className="max-w-6xl mx-auto text-center"
+        >
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <span className="inline-block py-1 px-4 rounded-full border border-indigo-500/30 bg-indigo-500/10 text-indigo-400 text-xs font-black uppercase tracking-widest mb-6">
-              Next-Gen Wealth Management
+            <span className="inline-block py-1.5 px-5 rounded-full border border-indigo-500/30 bg-indigo-500/10 text-indigo-400 text-[10px] font-black uppercase tracking-[0.3em] mb-8">
+              Experience the 3D Financial Future
             </span>
-            <h1 className="text-6xl md:text-8xl font-black tracking-tighter family-outfit leading-[0.9] mb-8">
-              Take Control of Your <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">Financial Future.</span>
+            <h1 className="text-7xl md:text-9xl font-black tracking-tighter family-outfit leading-[0.85] mb-10">
+              Wealth <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-cyan-400">Reimagined.</span>
             </h1>
-            <p className="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto mb-10 family-outfit font-medium">
-              Track expenses, set goals, and gain deep insights into your spending habits with our AI-powered personal finance platform.
+            <p className="text-slate-400 text-lg md:text-2xl max-w-2xl mx-auto mb-12 family-outfit font-medium leading-relaxed">
+              The only platform that combines immersive 3D analytics with AI-driven insights to maximize your capital.
             </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
               <Link to={AUTH_ROUTES.SIGN_UP}>
-                <Button className="h-16 px-10 text-lg bg-indigo-600 hover:bg-indigo-700 text-white font-black rounded-2xl shadow-[0_20px_40px_rgba(79,70,229,0.25)] group">
-                  Start Free Trial
-                  <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
+                <Button className="h-20 px-12 text-xl bg-indigo-600 hover:bg-indigo-700 text-white font-black rounded-[24px] shadow-[0_20px_50px_rgba(79,70,229,0.4)] group transition-all hover:scale-105">
+                  Start Your Journey
+                  <ArrowRight className="ml-3 size-6 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
               <Link to={AUTH_ROUTES.SIGN_IN}>
-                <Button variant="outline" className="h-16 px-10 text-lg border-white/10 bg-white/5 hover:bg-white/10 text-white font-black rounded-2xl">
-                  View Demo
+                <Button variant="outline" className="h-20 px-12 text-xl border-white/10 bg-white/5 hover:bg-white/10 text-white font-black rounded-[24px] hover:scale-105 transition-all">
+                  Live Demo
                 </Button>
               </Link>
             </div>
           </motion.div>
 
-          {/* Hero Image / Mockup */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 40 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="mt-20 relative"
-          >
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent z-10" />
-            <div className="rounded-3xl border border-white/10 overflow-hidden shadow-[0_0_100px_rgba(0,0,0,0.5)]">
-               <img 
-                src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=2070" 
-                alt="Dashboard Mockup" 
-                className="w-full h-auto"
-              />
-            </div>
-          </motion.div>
-        </div>
+          {/* Floating Elements / Stats */}
+          <div className="mt-32 grid grid-cols-2 md:grid-cols-4 gap-10">
+             {[
+               { label: "Active Users", value: "50K+" },
+               { label: "Assets Tracked", value: "$2.4B" },
+               { label: "AI Accuracy", value: "99.9%" },
+               { label: "Security", value: "Bank-Grade" }
+             ].map((stat, i) => (
+               <motion.div 
+                 key={i}
+                 initial={{ opacity: 0 }}
+                 whileInView={{ opacity: 1 }}
+                 transition={{ delay: i * 0.1 }}
+                 className="flex flex-col gap-1"
+               >
+                 <span className="text-3xl md:text-4xl font-black family-outfit text-white">{stat.value}</span>
+                 <span className="text-xs uppercase tracking-widest text-slate-500 font-bold">{stat.label}</span>
+               </motion.div>
+             ))}
+          </div>
+        </motion.div>
       </section>
 
       {/* Features Grid */}
-      <section id="features" className="py-24 px-6 bg-slate-950 relative overflow-hidden">
+      <section id="features" className="py-32 px-6 relative">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-20">
-            <h2 className="text-4xl md:text-5xl font-black tracking-tight family-outfit mb-4">Powerful Features for Smart Money</h2>
-            <p className="text-slate-400 font-medium">Everything you need to master your personal economy.</p>
+          <div className="flex flex-col md:flex-row items-end justify-between mb-20 gap-6">
+            <div className="max-w-xl">
+              <h2 className="text-5xl md:text-6xl font-black tracking-tight family-outfit mb-6">Designed for the <br /> 1% of Thinkers.</h2>
+              <p className="text-slate-400 text-lg font-medium">Precision tools for high-performance wealth management.</p>
+            </div>
+            <Link to={AUTH_ROUTES.SIGN_UP}>
+               <Button variant="link" className="text-indigo-400 font-black uppercase tracking-widest p-0 flex items-center gap-2">
+                 Explore all tools <ArrowRight className="size-4" />
+               </Button>
+            </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
                 icon: <BarChart3 className="size-8 text-indigo-400" />,
-                title: "Advanced Analytics",
-                desc: "Deep dive into your spending patterns with interactive charts and automated categorization."
+                title: "3D Analytics",
+                desc: "Visualize your net worth growth with immersive 3D data mapping and predictive forecasting."
               },
               {
                 icon: <Zap className="size-8 text-amber-400" />,
-                title: "AI Receipt Scan",
-                desc: "Snap a photo of your receipt and let our AI automatically extract and categorize the data."
+                title: "Neural Scan",
+                desc: "Our neural networks process receipts in milliseconds, extracting every item with perfect precision."
               },
               {
                 icon: <ShieldCheck className="size-8 text-emerald-400" />,
-                title: "Military-Grade Security",
-                desc: "Your data is encrypted with 256-bit AES encryption. Your privacy is our top priority."
+                title: "Quantum Secure",
+                desc: "Future-proof encryption that protects your financial identity from next-gen cyber threats."
               },
               {
                 icon: <PieChart className="size-8 text-pink-400" />,
-                title: "Budget Planning",
-                desc: "Set monthly limits and receive real-time notifications when you're close to reaching them."
+                title: "Smart Budgets",
+                desc: "Dynamic budgets that adapt to your lifestyle changes automatically using machine learning."
               },
               {
                 icon: <Target className="size-8 text-cyan-400" />,
-                title: "Goal Tracking",
-                desc: "Save for a new car or your dream home. Visualize your progress and stay motivated."
+                title: "Wealth Targets",
+                desc: "Set ambitious financial milestones and let our AI create the optimal path to reach them."
               },
               {
                 icon: <CreditCard className="size-8 text-violet-400" />,
-                title: "Bill Reminders",
-                desc: "Never miss a payment again. Get automated reminders before your bills are due."
+                title: "Cashflow Ops",
+                desc: "Master your liquidity with automated bill payments and high-yield savings distribution."
               }
             ].map((feature, i) => (
-              <motion.div
+              <FeatureCard 
                 key={i}
-                whileHover={{ y: -5 }}
-                className="p-8 rounded-[32px] bg-white/5 border border-white/5 hover:border-indigo-500/30 transition-all group"
-              >
-                <div className="size-16 rounded-2xl bg-slate-900 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                  {feature.icon}
-                </div>
-                <h3 className="text-xl font-black mb-3 family-outfit">{feature.title}</h3>
-                <p className="text-slate-400 text-sm leading-relaxed font-medium">
-                  {feature.desc}
-                </p>
-              </motion.div>
+                icon={feature.icon}
+                title={feature.title}
+                desc={feature.desc}
+                delay={i * 0.1}
+              />
             ))}
           </div>
         </div>
       </section>
 
+      {/* Final CTA */}
+      <section className="py-40 px-6 relative overflow-hidden">
+        <div className="absolute inset-0 bg-indigo-600/10 -z-10" />
+        <div className="max-w-4xl mx-auto text-center bg-white/5 border border-white/10 rounded-[60px] p-20 backdrop-blur-3xl relative overflow-hidden">
+           <div className="absolute -top-20 -right-20 size-60 bg-indigo-500/20 blur-[100px] rounded-full" />
+           <h2 className="text-5xl md:text-7xl font-black family-outfit tracking-tighter mb-8 leading-tight">Ready to elevate your <br /> financial status?</h2>
+           <Link to={AUTH_ROUTES.SIGN_UP}>
+             <Button className="h-20 px-16 text-2xl bg-white text-slate-950 hover:bg-slate-200 font-black rounded-3xl transition-transform hover:scale-105 active:scale-95">
+               Get Started Now
+             </Button>
+           </Link>
+        </div>
+      </section>
+
       {/* Footer */}
-      <footer className="py-20 px-6 border-t border-white/5">
-        <div className="max-w-7xl mx-auto flex flex-col md:row items-center justify-between gap-10">
+      <footer className="py-20 px-6 border-t border-white/5 bg-slate-950">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-10">
           <div className="flex items-center gap-2">
             <div className="size-8 bg-indigo-600 rounded-lg flex items-center justify-center">
               <span className="text-lg font-black italic">D</span>
@@ -166,11 +293,11 @@ const Landing = () => {
             <span className="text-lg font-black tracking-tight family-outfit">DHR Finance</span>
           </div>
           <div className="flex items-center gap-10 text-sm text-slate-500 font-medium">
-            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
-            <a href="#" className="hover:text-white transition-colors">Contact Us</a>
+            <a href="#" className="hover:text-white transition-colors">Privacy</a>
+            <a href="#" className="hover:text-white transition-colors">Terms</a>
+            <a href="#" className="hover:text-white transition-colors">Support</a>
           </div>
-          <p className="text-slate-600 text-sm">© 2026 DHR Finance. All rights reserved.</p>
+          <p className="text-slate-600 text-sm">© 2026 DHR Finance. Built for the future.</p>
         </div>
       </footer>
     </div>
