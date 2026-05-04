@@ -364,7 +364,7 @@ const Landing = () => {
            <div className="absolute -top-20 -right-20 size-60 bg-indigo-500/20 blur-[100px] rounded-full" />
            <h2 className="text-5xl md:text-7xl font-black family-outfit tracking-tighter mb-8 leading-tight">Ready to elevate your <br /> financial status?</h2>
            <Link to={AUTH_ROUTES.SIGN_UP}>
-             <Button className="h-16 md:h-20 px-10 md:px-16 text-lg md:text-2xl bg-white text-black hover:bg-slate-200 font-black rounded-2xl md:rounded-3xl transition-transform hover:scale-105 active:scale-95 shadow-xl">
+             <Button className="h-16 md:h-20 px-10 md:px-16 text-lg md:text-2xl bg-white text-black dark:text-black hover:bg-slate-200 dark:hover:bg-slate-200 font-black rounded-2xl md:rounded-3xl transition-transform hover:scale-105 active:scale-95 shadow-xl">
                Join DHR Finance
              </Button>
            </Link>
