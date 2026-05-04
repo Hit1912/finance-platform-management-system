@@ -7,9 +7,8 @@ import { useTypedSelector } from "@/app/hook"
 
 const Logo = (props: { url?: string; variant?: "light" | "dark", className?: string }) => {
   const isLight = props.variant === "light";
-  const { accessToken } = useTypedSelector((state) => state.auth);
 
-  const destination = props.url || (accessToken ? PROTECTED_ROUTES.OVERVIEW : AUTH_ROUTES.LANDING);
+  const destination = props.url || AUTH_ROUTES.LANDING;
 
   return (
     <Link to={destination} className={cn("flex items-center gap-2 group", props.className)}>
