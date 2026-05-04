@@ -1,5 +1,4 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { RootState } from "./store";
+import { createApi } from "@reduxjs/toolkit/query/react";
 import { mockBaseQuery } from "./mock-base-query";
 
 // Mock base query for Database-Free Local Development

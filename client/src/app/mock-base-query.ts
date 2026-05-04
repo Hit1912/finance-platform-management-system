@@ -39,9 +39,8 @@ export const mockBaseQuery: BaseQueryFn<
         return { error: { status: 400, data: { message: "User already exists" } } };
       }
       const newUser = {
-        _id: Date.now().toString(),
-        firstName,
-        lastName,
+        id: Date.now(),
+        name: `${firstName} ${lastName}`,
         email,
         password,
         profilePicture: "https://github.com/shadcn.png",
@@ -58,9 +57,8 @@ export const mockBaseQuery: BaseQueryFn<
       // Default user for easy testing
       if (!user && email === "test@example.com") {
         user = {
-          _id: Date.now().toString(),
-          firstName: "Test",
-          lastName: "User",
+          id: Date.now(),
+          name: "Test User",
           email,
           password,
           profilePicture: "https://github.com/shadcn.png",
@@ -78,9 +76,8 @@ export const mockBaseQuery: BaseQueryFn<
           accessToken: "mock_jwt_token_" + Date.now(),
           expiresAt: new Date(Date.now() + 86400000).toISOString(),
           user: {
-            _id: user._id,
-            firstName: user.firstName,
-            lastName: user.lastName,
+            id: user.id,
+            name: user.name,
             email: user.email,
             profilePicture: user.profilePicture,
           },
@@ -170,9 +167,9 @@ export const mockBaseQuery: BaseQueryFn<
     // FINANCE & ANALYTICS
     // ----------------------------------------
     if (url === "/finance/overview" && method === "GET") {
-      const balance = transactions.reduce((acc, curr) => acc + (curr.type === 'INCOME' ? curr.amount : -curr.amount), 0);
-      const income = transactions.filter((t) => t.type === 'INCOME').reduce((acc, curr) => acc + curr.amount, 0);
-      const expenses = transactions.filter((t) => t.type === 'EXPENSE').reduce((acc, curr) => acc + curr.amount, 0);
+      const balance = transactions.reduce((acc: number, curr: any) => acc + (curr.type === 'INCOME' ? curr.amount : -curr.amount), 0);
+      const income = transactions.filter((t: any) => t.type === 'INCOME').reduce((acc: number, curr: any) => acc + curr.amount, 0);
+      const expenses = transactions.filter((t: any) => t.type === 'EXPENSE').reduce((acc: number, curr: any) => acc + curr.amount, 0);
 
       return {
         data: {

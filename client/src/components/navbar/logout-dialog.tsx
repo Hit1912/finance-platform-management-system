@@ -1,5 +1,11 @@
-import { Dialog, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { DialogContent, DialogDescription } from "@/components/ui/dialog";
+import { 
+  Dialog, 
+  DialogContent, 
+  DialogDescription, 
+  DialogFooter, 
+  DialogHeader, 
+  DialogTitle 
+} from "@/components/ui/dialog";
 import { Loader, LogOut, X } from "lucide-react";
 import { Button } from "../ui/button";
 import { useTransition } from "react";

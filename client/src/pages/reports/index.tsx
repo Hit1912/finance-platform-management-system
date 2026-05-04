@@ -16,7 +16,6 @@ export default function Reports() {
     <PageLayout
       title="Report Center"
       subtitle="Comprehensive insights into your financial health"
-      headerClassName="family-outfit font-black tracking-tight"
       addMarginTop
       rightAction={
         <div className="flex items-center gap-3">
