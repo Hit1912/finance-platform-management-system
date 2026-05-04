@@ -4,6 +4,7 @@
     "scripts": {
         "dev:backend": "npm run dev --prefix backend",
         "dev:client": "npm run dev --prefix client",
-        "dev": "npx concurrently \"npm run dev:backend\" \"npm run dev:client\""
+        "dev": "npx concurrently \"npm run dev:backend\" \"npm run dev:client\"",
+        "build": "npm run build --prefix client"
     }
 }
