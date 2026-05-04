@@ -1,17 +1,9 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { RootState } from "./store";
+import { mockBaseQuery } from "./mock-base-query";
 
-const baseQuery = fetchBaseQuery({
-  baseUrl: import.meta.env.VITE_API_URL,
-  credentials: "include",
-  prepareHeaders: (headers, { getState }) => {
-    const auth = (getState() as RootState).auth;
-    if (auth?.accessToken) {
-      headers.set("Authorization", `Bearer ${auth.accessToken}`);
-    }
-    return headers;
-  },
-});
+// Mock base query for Database-Free Local Development
+const baseQuery = mockBaseQuery;
 
 export const apiClient = createApi({
   reducerPath: "api", // Add API client reducer to root reducer
