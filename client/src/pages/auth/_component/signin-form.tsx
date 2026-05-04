@@ -49,9 +49,7 @@ const SignInForm = ({
       .then((data) => {
         dispatch(setCredentials(data));
         toast.success("Login successful");
-        setTimeout(() => {
-          navigate(PROTECTED_ROUTES.OVERVIEW);
-        }, 1000);
+        navigate(PROTECTED_ROUTES.OVERVIEW);
       })
       .catch((error) => {
         console.log(error);

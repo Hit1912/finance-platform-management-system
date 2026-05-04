@@ -92,7 +92,7 @@ export const mockBaseQuery: BaseQueryFn<
       return {
         data: {
           accessToken: "mock_jwt_token_" + Date.now(),
-          expiresAt: new Date(Date.now() + 86400000).toISOString(),
+          expiresAt: Date.now() + 86400000, // Number
           user: {
             id: user.id,
             name: user.name,
