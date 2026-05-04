@@ -13,12 +13,24 @@ const saveDb = (key: string, data: any) => {
   localStorage.setItem(`mock_finance_${key}`, JSON.stringify(data));
 };
 
-// Initialize Mock Collections
+// Initialize Mock Collections with Seed Data
 let users = getDb("users", []);
-let transactions = getDb("transactions", []);
-let budgets = getDb("budgets", []);
-let goals = getDb("goals", []);
-let bills = getDb("bills", []);
+let transactions = getDb("transactions", [
+  { _id: "1", title: "Monthly Salary", amount: 5000, type: "INCOME", category: "Salary", date: new Date().toISOString() },
+  { _id: "2", title: "House Rent", amount: 1200, type: "EXPENSE", category: "Housing", date: new Date().toISOString() },
+  { _id: "3", title: "Grocery Shopping", amount: 150, type: "EXPENSE", category: "Food", date: new Date().toISOString() },
+  { _id: "4", title: "Internet Bill", amount: 60, type: "EXPENSE", category: "Utilities", date: new Date().toISOString() },
+]);
+let budgets = getDb("budgets", [
+  { _id: "1", category: "Food", limit: 500, spent: 150 },
+  { _id: "2", category: "Housing", limit: 1500, spent: 1200 },
+]);
+let goals = getDb("goals", [
+  { _id: "1", name: "New Car", targetAmount: 20000, currentAmount: 5000 },
+]);
+let bills = getDb("bills", [
+  { _id: "1", title: "Electricity", amount: 100, dueDate: new Date(Date.now() + 86400000 * 5).toISOString(), status: "PENDING" },
+]);
 
 export const mockBaseQuery: BaseQueryFn<
   { url: string; method?: string; body?: any; params?: any },
