@@ -132,15 +132,23 @@ const Landing = () => {
             <div className="size-10 bg-indigo-600 rounded-xl flex items-center justify-center shadow-[0_0_20px_rgba(79,70,229,0.4)]">
               <span className="text-xl font-black italic">D</span>
             </div>
-            <span className="text-xl font-black tracking-tight family-outfit">DHR Finance</span>
+            <span className="text-xl font-black tracking-tight family-outfit hidden sm:inline">DHR Finance</span>
           </div>
 
-          {/* Mobile Menu Trigger */}
           <div className="flex md:hidden items-center gap-2">
+            <Link to={AUTH_ROUTES.SIGN_IN}>
+              <Button variant="ghost" className="text-slate-400 hover:text-white font-bold text-sm px-2">Login</Button>
+            </Link>
+            <Link to={AUTH_ROUTES.SIGN_UP}>
+              <Button size="sm" className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg text-xs">
+                Get Started
+              </Button>
+            </Link>
+            
             <Sheet>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon" className="text-white">
-                  <Menu className="size-6" />
+                  <Menu className="size-5" />
                 </Button>
               </SheetTrigger>
               <SheetContent side="top" className="bg-slate-950 border-white/5 pt-20">
@@ -148,17 +156,6 @@ const Landing = () => {
                     <a href="#features" className="text-xl font-bold text-slate-400 hover:text-white transition-colors">Features</a>
                     <a href="#analytics" className="text-xl font-bold text-slate-400 hover:text-white transition-colors">Analytics</a>
                     <a href="#security" className="text-xl font-bold text-slate-400 hover:text-white transition-colors">Security</a>
-                    <hr className="border-white/5" />
-                    <div className="flex flex-col gap-4">
-                      <Link to={AUTH_ROUTES.SIGN_IN}>
-                        <Button variant="ghost" className="w-full text-slate-400 hover:text-white font-bold">Login</Button>
-                      </Link>
-                      <Link to={AUTH_ROUTES.SIGN_UP}>
-                        <Button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl">
-                          Get Started
-                        </Button>
-                      </Link>
-                    </div>
                  </div>
               </SheetContent>
             </Sheet>
