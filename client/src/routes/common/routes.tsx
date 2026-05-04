@@ -17,7 +17,6 @@ import Support from "@/pages/settings/support";
 import Landing from "@/pages/landing";
 
 export const authenticationRoutePaths = [
-  { path: AUTH_ROUTES.LANDING, element: <Landing /> },
   { path: AUTH_ROUTES.SIGN_IN, element: <SignIn /> },
   { path: AUTH_ROUTES.SIGN_UP, element: <SignUp /> },
 ];

@@ -1,14 +1,18 @@
-import { PROTECTED_ROUTES } from "@/routes/common/routePath"
+import { AUTH_ROUTES, PROTECTED_ROUTES } from "@/routes/common/routePath"
 import { GalleryVerticalEnd } from "lucide-react"
 import { Link } from "react-router-dom"
 import { motion } from "framer-motion"
 import { cn } from "@/lib/utils"
+import { useTypedSelector } from "@/app/hook"
 
 const Logo = (props: { url?: string; variant?: "light" | "dark", className?: string }) => {
   const isLight = props.variant === "light";
+  const { accessToken } = useTypedSelector((state) => state.auth);
+
+  const destination = props.url || (accessToken ? PROTECTED_ROUTES.OVERVIEW : AUTH_ROUTES.LANDING);
 
   return (
-    <Link to={props.url || PROTECTED_ROUTES.OVERVIEW} className={cn("flex items-center gap-2 group", props.className)}>
+    <Link to={destination} className={cn("flex items-center gap-2 group", props.className)}>
       <motion.div
         whileHover={{ scale: 1.15, rotate: -5 }}
         whileTap={{ scale: 0.9 }}
